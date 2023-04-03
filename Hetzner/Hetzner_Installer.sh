@@ -310,7 +310,7 @@ get_ports () {
   WGPORT=$(cat $WGCONFLOC | grep 'ListenPort' | awk '{print $3}')
   WG_CLIENT_IP=$(cat $WGCLIENTIPFILE)
   TUNNEL_IP=$(ip -4 a show scope global | grep global | awk '{print $2}' | sed 's/\/.*//g')
-  TUNNEL_INT=$(ip -4 a show scope global | grep global | awk '{print $7}')
+  TUNNEL_INT=$(ip -4 a show scope global | grep global | grep -v " 172." | grep -v "wg0" | awk '{print $(NF)}')
   echo "What ports/protcols do you want to pass through to your Local Server?"
   echo "Please enter them like the following (comma separated, no spaces):"
   echo "443/tcp,80/tcp,8123/udp,5128/tcp"
